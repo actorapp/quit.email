@@ -14,6 +14,7 @@ var reactify = require('reactify');
 var rename = require('gulp-rename');
 var browserSync = require('browser-sync');
 var watchify = require('watchify');
+var modRewrite = require('connect-modrewrite');
 var reload = browserSync.reload;
 
 // add custom browserify options here
@@ -45,7 +46,7 @@ function bundle() {
     .pipe(rename('js/app.js'))
     .pipe(sourcemaps.write('./')) // writes .map file
     .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.reload({stream: true, once: true}));;
+    .pipe(browserSync.reload({stream: true, once: true}));
 }
 
 gulp.task('html', function() {
@@ -57,7 +58,12 @@ gulp.task('html', function() {
 gulp.task('serve', function() {
   browserSync({
     server: {
-      baseDir: 'dist'
+      baseDir: 'dist',
+      middleware: [
+        modRewrite([
+          '^[^\\.]*$ /index.html [L]'
+        ])
+      ]
     }
   });
 

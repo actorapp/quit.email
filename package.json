@@ -11,6 +11,7 @@
   "devDependencies": {
     "browser-sync": "^2.7.6",
     "browserify": "^10.2.3",
+    "connect-modrewrite": "^0.8.1",
     "globby": "^2.0.0",
     "gulp": "^3.9.0",
     "gulp-sourcemaps": "^1.5.2",
@@ -20,10 +21,10 @@
     "reactify": "^1.1.1",
     "through2": "^0.6.5",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.1"
   },
   "dependencies": {
-    "watchify": "^3.2.1",
-    "zepto": "0.0.4"
+    "zeptojs": "^1.1.4"
   }
 }
