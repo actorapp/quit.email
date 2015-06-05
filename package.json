@@ -23,6 +23,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "watchify": "^3.2.1"
+    "watchify": "^3.2.1",
+    "zepto": "0.0.4"
   }
 }

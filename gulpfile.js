@@ -44,7 +44,8 @@ function bundle() {
     // Add transformation tasks to the pipeline here.
     .pipe(rename('js/app.js'))
     .pipe(sourcemaps.write('./')) // writes .map file
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist'))
+    .pipe(browserSync.reload({stream: true, once: true}));;
 }
 
 gulp.task('html', function() {
