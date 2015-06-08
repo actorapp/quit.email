@@ -5,12 +5,10 @@ var $ = require('zeptojs');
 
 var App = React.createClass({
   getInitialState: function() {
-    return {
-      isLoading: true
-    }
+    return({isLoading: true});
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     var match = document.location.pathname.match(/\/join\/(.+)/);
     if (match) {
       var token = match[1];
@@ -22,8 +20,11 @@ var App = React.createClass({
           isLoading: false,
 
           group: {
-            title: resp.group.title
+            title: resp.group.title,
+            avatarUrl: resp.group.avatars.large
           },
+
+          token: token,
 
           inviter: {
             name: resp.inviter.name,
@@ -37,17 +38,27 @@ var App = React.createClass({
   render: function() {
     var group = this.state.group;
     var inviter = this.state.inviter;
+    var joinLink = 'http://appeap.actor.im/join/' + this.state.token;
 
     if (!this.state.isLoading) {
         return (
-          <div>
-            <p>Вас приглашает {inviter.name} <img src={inviter.avatarUrl}/></p>
-            <p>{group.name} <img src={group.avatarUrl}/></p>
-            <p><a href="http://appeap.actor.im/join/{token}">Зайти</a></p>
+          <div className="row center-xs middle-xs">
+            <section className="invite">
+              <div className="invite__group">
+                <img className="avatar avatar--huge" src={group.avatarUrl}/>
+                <h3>{group.title}</h3>
+              </div>
+              <div className="invite__from">
+                <p><img className="avatar" src={inviter.avatarUrl}/> {inviter.name} приглашает Вас</p>
+              </div>
+              <a href={joinLink} className="button button--primary button--wide">Присоединиться</a>
+            </section>
           </div>
         )
     } else {
-      return (<span>Loading...</span>)
+      return (
+        <span>Loading...</span>
+      )
     }
   }
 });

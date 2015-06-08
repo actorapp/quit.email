@@ -1,21 +1,24 @@
 'use strict';
 
 var assign = require('object-assign');
+var autoprefixer = require('gulp-autoprefixer');
 var browserify = require('browserify');
-var gulp = require('gulp');
-var source = require('vinyl-source-stream');
+var browserSync = require('browser-sync');
 var buffer = require('vinyl-buffer');
 var globby = require('globby');
-var through = require('through2');
+var gulp = require('gulp');
 var gutil = require('gulp-util');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var reactify = require('reactify');
-var rename = require('gulp-rename');
-var browserSync = require('browser-sync');
-var watchify = require('watchify');
+var minifycss = require('gulp-minify-css');
 var modRewrite = require('connect-modrewrite');
+var reactify = require('reactify');
 var reload = browserSync.reload;
+var rename = require('gulp-rename');
+var sass = require('gulp-sass');
+var source = require('vinyl-source-stream');
+var sourcemaps = require('gulp-sourcemaps');
+var through = require('through2');
+var uglify = require('gulp-uglify');
+var watchify = require('watchify');
 
 // add custom browserify options here
 var customOpts = {
@@ -49,6 +52,18 @@ function bundle() {
     .pipe(browserSync.reload({stream: true, once: true}));
 }
 
+// Compile sass into CSS & auto-inject into browsers
+gulp.task('sass', function() {
+  return gulp.src("app/styles/*.scss")
+    .pipe(sourcemaps.init())
+    .pipe(sass())
+    .pipe(autoprefixer())
+    .pipe(minifycss())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest("./dist/styles"))
+    .pipe(browserSync.stream());
+});
+
 gulp.task('html', function() {
   gulp.src('app/index.html')
     .pipe(rename('index.html'))
@@ -58,16 +73,27 @@ gulp.task('html', function() {
 gulp.task('serve', function() {
   browserSync({
     server: {
-      baseDir: 'dist',
+      baseDir: './dist',
       middleware: [
         modRewrite([
           '^[^\\.]*$ /index.html [L]'
         ])
       ]
-    }
+    },
+    // Here you can disable/enable each feature individually
+    ghostMode: {
+      clicks: true,
+      forms: true,
+      scroll: false
+    },
+    open: false
   });
 
-  gulp.watch(['*.html', 'css/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
+  gulp.watch("app/styles/*.scss", ['sass']);
+  gulp.watch(["app/*.html", "app/js/**/*.js"]).on('change', reload);
+  //gulp.watch(['*.html', 'css/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
 });
 
-gulp.task('dev', ['js', 'html', 'serve']);
+
+
+gulp.task('dev', ['js', 'sass', 'html', 'serve']);
