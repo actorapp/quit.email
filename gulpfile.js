@@ -94,6 +94,6 @@ gulp.task('serve', function() {
   //gulp.watch(['*.html', 'css/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
 });
 
-
-
 gulp.task('dev', ['js', 'sass', 'html', 'serve']);
+
+gulp.task('build', ['js', 'sass', 'html']);
