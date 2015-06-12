@@ -52,6 +52,19 @@ var App = React.createClass({
 
         return (
           <div className="row center-xs middle-xs">
+            <section className="invite-new">
+              <div className="invite-new__body">
+                  <h3>Invite to {group.title}</h3>
+                <p>
+                  <strong>{inviter.name}</strong> invite you to our small <strong>team chat</strong>.
+                </p>
+                <a href={joinLink} className="">Join chat</a>
+                <footer>
+                  Greetings,<br/><strong>Actor Team</strong>
+                </footer>
+              </div>
+            </section>
+
             <section className="invite">
               <div className="invite__group">
                 {groupAvatar}

@@ -70,6 +70,11 @@ gulp.task('html', function() {
     .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('assets', function() {
+  gulp.src('app/img/**/*')
+    .pipe(gulp.dest('./dist/img'));
+});
+
 gulp.task('serve', function() {
   browserSync({
     server: {
@@ -94,6 +99,6 @@ gulp.task('serve', function() {
   //gulp.watch(['*.html', 'css/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
 });
 
-gulp.task('dev', ['js', 'sass', 'html', 'serve']);
+gulp.task('dev', ['js', 'sass', 'html', 'assets', 'serve']);
 
 gulp.task('build', ['js', 'sass', 'html']);

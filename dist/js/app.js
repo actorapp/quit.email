@@ -61,6 +61,19 @@ var App = React.createClass({displayName: "App",
 
         return (
           React.createElement("div", {className: "row center-xs middle-xs"}, 
+            React.createElement("section", {className: "invite-new"}, 
+              React.createElement("div", {className: "invite-new__body"}, 
+                  React.createElement("h3", null, "Invite to ", group.title), 
+                React.createElement("p", null, 
+                  React.createElement("strong", null, inviter.name), " invite you to our small ", React.createElement("strong", null, "team chat"), "."
+                ), 
+                React.createElement("a", {href: joinLink, className: ""}, "Join chat"), 
+                React.createElement("footer", null, 
+                  "Greetings,", React.createElement("br", null), React.createElement("strong", null, "Actor Team")
+                )
+              )
+            ), 
+
             React.createElement("section", {className: "invite"}, 
               React.createElement("div", {className: "invite__group"}, 
                 groupAvatar, 

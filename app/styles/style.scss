@@ -1,4 +1,4 @@
-$bodyColor: rgb(218,226,227);
+$bodyColor: #EEEEEE;
 $baseColor: #4c617a;
 $defaultBorderRadius: 3px;
 // Placeholder color
@@ -25,7 +25,7 @@ $buttonTextColor: rgb(144, 144, 144);
 
 @import '../../node_modules/normalize.css/normalize.css';
 @import '../../node_modules/flexboxgrid/dist/flexboxgrid.min.css';
-@import url(https://fonts.googleapis.com/css?family=RobotoDraft:400,700,500&subset=latin,cyrillic);
+@import url('//fonts.googleapis.com/css?family=RobotoDraft:400,500|Roboto+Slab&subset=latin,cyrillic');
 
 html {
   width: 100%;
@@ -35,6 +35,10 @@ body {
   background-color: $bodyColor;
   width: 100%;
   height: 100%;
+  //text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
 }
 
 #app {
@@ -46,7 +50,61 @@ body {
   }
 }
 
+.invite-new {
+  width: 480px;
+  height: 504px;
+  background: url(/img/envelope.png) 0 0 no-repeat ;
+  position: relative;
+  &__body {
+    text-align: initial;
+    position: absolute;
+    width: 292px;
+    top: 3px;
+    left: 94px;
+    box-sizing: border-box;
+    height: 200px;
+    padding: 18px 20px 0;
+    font-family: 'RobotoDraft', serif;
+    color: rgba(61,61,61,.66);
+    h3 {
+      line-height: 20px;
+      font-family: 'Roboto Slab', serif;
+      font-size: 16px;
+      margin: 0 0 15px;
+      color: #3D3D3D;
+      font-weight: 400;
+    }
+    p {
+      line-height: 19px;
+      font-size: 14px;
+      margin: 0 0 25px;
+    }
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: #4A90E2;
+      font-weight: 500;
+    }
+    strong {
+      font-weight: 500;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      right: 20px;
+      text-align: right;
+      font-size: 13px;
+      line-height: 18px;
+      color: rgba(61,61,61,.56);
+    }
+  }
+}
+
+
 .invite {
+  display: none;
+
   width: 300px;
   min-height: 200px;
   background-color: white;
@@ -63,6 +121,14 @@ body {
   &__from {
     margin-top: 160px;
   }
+
+
+  h3 {
+    font-family: 'RobotoDraft', 'Roboto', sans-serif;
+    font-weight: 400;
+    color: $baseColor;
+  }
+
 }
 
 .avatar {
@@ -194,12 +260,6 @@ body {
       height: $avatarHugeSize - 2px;
     }
   }
-}
-
-h3 {
-  font-family: 'RobotoDraft', 'Roboto', sans-serif;
-  font-weight: 400;
-  color: $baseColor;
 }
 
 .button {
