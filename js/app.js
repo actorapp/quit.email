@@ -53,39 +53,20 @@ var App = React.createClass({displayName: "App",
     var joinLink = 'http://app.actor.im/join/' + this.state.token;
 
     if (!this.state.isLoading) {
-      var groupAvatar = null;
-
-      if (group.avatarUrl) {
-        groupAvatar = React.createElement("img", {className: "avatar avatar--huge", src: group.avatarUrl});
-      }
-
-        return (
-          React.createElement("div", {className: "row center-xs middle-xs"}, 
-            React.createElement("section", {className: "invite-new"}, 
-              React.createElement("div", {className: "invite-new__body"}, 
-                  React.createElement("h3", null, "Invite to ", group.title), 
-                React.createElement("p", null, 
-                  React.createElement("strong", null, inviter.name), " invite you to our small ", React.createElement("strong", null, "team chat"), "."
-                ), 
-                React.createElement("a", {href: joinLink, className: ""}, "Join chat"), 
-                React.createElement("footer", null, 
-                  "Greetings,", React.createElement("br", null), React.createElement("strong", null, "Actor Team")
-                )
-              )
+      return (
+        React.createElement("section", {className: "invite"}, 
+          React.createElement("div", {className: "invite__body"}, 
+              React.createElement("h3", null, "Invite to ", group.title), 
+            React.createElement("p", null, 
+              React.createElement("strong", null, inviter.name), " invite you to our small ", React.createElement("strong", null, "team chat"), "."
             ), 
-
-            React.createElement("section", {className: "invite"}, 
-              React.createElement("div", {className: "invite__group"}, 
-                groupAvatar, 
-                React.createElement("h3", null, group.title)
-              ), 
-              React.createElement("div", {className: "invite__from"}, 
-                React.createElement("p", null, React.createElement("img", {className: "avatar", src: inviter.avatarUrl}), " ", inviter.name, " приглашает Вас")
-              ), 
-              React.createElement("a", {href: joinLink, className: "button button--primary button--wide"}, "Присоединиться")
+            React.createElement("a", {href: joinLink}, "Join chat"), 
+            React.createElement("footer", null, 
+              "Greetings,", React.createElement("br", null), React.createElement("strong", null, "Actor Team")
             )
           )
         )
+      )
     } else {
       return (
         React.createElement("span", null, "Loading...")
