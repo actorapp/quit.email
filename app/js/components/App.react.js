@@ -41,7 +41,7 @@ var App = React.createClass({
   render: function() {
     var group = this.state.group;
     var inviter = this.state.inviter;
-    var joinLink = 'http://app.actor.im/join/' + this.state.token;
+    var joinLink = 'https://app.actor.im/#/join/' + this.state.token;
 
     if (!this.state.isLoading) {
       var groupAvatar = null;
