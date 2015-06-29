@@ -44,23 +44,48 @@ var App = React.createClass({displayName: "App",
           }
         });
       });
+
     }
+  },
+
+  onClick: function() {
+    var token = this.state.token;
+    var joinLink = 'https://app.actor.im/#/join/' + token;
+    var clicked = +new Date;
+
+    var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
+    var isAndroid = navigator.userAgent.match('Android');
+
+    if (isiOS || isAndroid) {
+      document.getElementById('loader').src = 'actor://invite?token=' + token;
+      joinLink = isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
+    }
+
+    setTimeout(function () {
+      if (+new Date - clicked < timeout * 2) {
+        window.location.replace(joinLink);
+      }
+    }, 100);
+
   },
 
   render: function() {
     var group = this.state.group;
     var inviter = this.state.inviter;
-    var joinLink = 'https://app.actor.im/#/join/' + this.state.token;
 
     if (!this.state.isLoading) {
       return (
         React.createElement("section", {className: "invite"}, 
+          React.createElement("iframe", {style: {display: 'none'}, height: "0", width: "0", id: "loader"}), 
           React.createElement("div", {className: "invite__body"}, 
-              React.createElement("h3", null, "Invite to ", group.title), 
+            React.createElement("h3", null, "Invite to ", group.title), 
+
             React.createElement("p", null, 
               React.createElement("strong", null, inviter.name), " invite you to our small ", React.createElement("strong", null, "team chat"), "."
             ), 
-            React.createElement("a", {href: joinLink}, "Join chat"), 
+
+            React.createElement("a", {onClick: this.onClick}, "Join chat"), 
+
             React.createElement("footer", null, 
               "Greetings,", React.createElement("br", null), React.createElement("strong", null, "Actor Team")
             )
