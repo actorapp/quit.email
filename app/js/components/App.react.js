@@ -35,23 +35,43 @@ var App = React.createClass({
           }
         });
       });
+
+
     }
+  },
+
+  onClick: function() {
+    var token = this.state.token;
+    var joinLink = 'https://app.actor.im/#/join/' + token;
+
+    var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod'),
+      isAndroid = navigator.userAgent.match('Android');
+
+    if (isiOS || isAndroid) {
+      document.getElementById('loader').src = 'actor://invite?token=' + token;
+
+      joinLink = isAndroid ?
+        'https://actor.im/android' :
+        'https://actor.im/ios';
+    }
+
+    window.setTimeout(function (){ window.location.replace(joinLink); }, 1);
   },
 
   render: function() {
     var group = this.state.group;
     var inviter = this.state.inviter;
-    var joinLink = 'https://app.actor.im/#/join/' + this.state.token;
 
     if (!this.state.isLoading) {
       return (
         <section className="invite">
+          <iframe style={{display: 'none'}} height="0" width="0" id="loader"></iframe>
           <div className="invite__body">
               <h3>Invite to {group.title}</h3>
             <p>
               <strong>{inviter.name}</strong> invite you to our small <strong>team chat</strong>.
             </p>
-            <a href={joinLink}>Join chat</a>
+            <a onClick={this.onClick}>Join chat</a>
             <footer>
               Greetings,<br/><strong>Actor Team</strong>
             </footer>

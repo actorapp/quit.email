@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=RobotoDraft:400,500|Roboto+Slab&subset=latin,cyrillic');
 
 $bodyColor: #eee;
+$havelock-blue: #4a90e2;
 
 html
 {
@@ -90,10 +91,15 @@ body
             font-size: 14px;
             font-weight: 500;
 
+            cursor: pointer !important;
             text-decoration: none;
             text-transform: uppercase;
 
-            color: #4a90e2;
+            color: rgba($havelock-blue, .75);
+            &:hover
+            {
+                color: $havelock-blue;
+            }
         }
         strong
         {
