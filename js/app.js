@@ -55,6 +55,8 @@ var App = React.createClass({displayName: "App",
 
     var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
     var isAndroid = navigator.userAgent.match('Android');
+    
+    var timeout = 300;
 
     if (isiOS || isAndroid) {
       document.getElementById('loader').src = 'actor://invite?token=' + token;
