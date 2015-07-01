@@ -110,7 +110,7 @@ var App = React.createClass({displayName: "App",
       )
     } else {
       return (
-        React.createElement("span", null, "Loading...")
+        React.createElement("span", null)
       )
     }
   }
