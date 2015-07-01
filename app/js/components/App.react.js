@@ -101,7 +101,7 @@ var App = React.createClass({
       )
     } else {
       return (
-        <span>Loading...</span>
+        <span/>
       )
     }
   }
