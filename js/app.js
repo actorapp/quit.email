@@ -22,35 +22,44 @@ var App = React.createClass({displayName: "App",
 
     if (match) {
       var token = match[1];
-
       var component = this;
 
+
       if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
-        this.setState({isLoading: true});
-        this.onClick();
-      }
 
-      $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
-        var inviterAvatars = resp.inviter.avatars || {};
-        var groupAvatars = resp.group.avatars || {};
-
-        component.setState({
-          isLoading: false,
-
-          group: {
-            title: resp.group.title,
-            avatarUrl: groupAvatars.large
-          },
-
-          token: token,
-
-          inviter: {
-            name: resp.inviter.name,
-            avatarUrl: inviterAvatars.large
-          }
+        this.setState({
+          isLoading: true,
+          token: token
         });
-      });
 
+        setTimeout( function() {
+          component.onClick();
+        }, 0)
+
+      } else {
+
+        $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
+          var inviterAvatars = resp.inviter.avatars || {};
+          var groupAvatars = resp.group.avatars || {};
+
+          component.setState({
+            isLoading: false,
+
+            group: {
+              title: resp.group.title,
+              avatarUrl: groupAvatars.large
+            },
+
+            token: token,
+
+            inviter: {
+              name: resp.inviter.name,
+              avatarUrl: inviterAvatars.large
+            }
+          });
+        });
+
+      }
     }
   },
 
