@@ -18,7 +18,12 @@ var App = React.createClass({displayName: "App",
   },
 
   componentWillMount: function() {
+    if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
+      this.onClick();
+    }
+
     var match = document.location.pathname.match(/\/join\/(.+)/);
+
     if (match) {
       var token = match[1];
 
@@ -51,12 +56,11 @@ var App = React.createClass({displayName: "App",
   onClick: function() {
     var token = this.state.token;
     var joinLink = 'https://app.actor.im/#/join/' + token;
+    var timeout = 100;
     var clicked = +new Date;
 
     var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
     var isAndroid = navigator.userAgent.match('Android');
-    
-    var timeout = 300;
 
     if (isiOS || isAndroid) {
       document.getElementById('loader').src = 'actor://invite?token=' + token;
@@ -67,7 +71,7 @@ var App = React.createClass({displayName: "App",
       if (+new Date - clicked < timeout * 2) {
         window.location.replace(joinLink);
       }
-    }, 100);
+    }, timeout);
 
   },
 
