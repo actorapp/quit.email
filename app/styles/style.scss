@@ -12,12 +12,13 @@ html
 body
 {
     position: relative;
-    //overflow: hidden;
 
+    box-sizing: border-box;
     width: 100%;
     max-width: 510px;
     height: 100%;
-    margin: 100px auto 0;
+    margin: 0 auto;
+    padding-top: 100px;
 
     background-color: $bodyColor;
 
@@ -35,7 +36,7 @@ body
 
     width: 510px;
     height: 518px;
-    margin: 100px auto 0;
+    margin: 0 auto;
     //margin-top: -210px;
     //margin-left: -255px;
 }

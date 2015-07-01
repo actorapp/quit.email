@@ -13,38 +13,44 @@ var App = React.createClass({
 
     if (match) {
       var token = match[1];
-
       var component = this;
 
+
       if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
+
         this.setState({
           isLoading: true,
           token: token
         });
-        this.onClick();
-      }
 
-      $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
-        var inviterAvatars = resp.inviter.avatars || {};
-        var groupAvatars = resp.group.avatars || {};
+        setTimeout( function() {
+          component.onClick();
+        }, 0)
 
-        component.setState({
-          isLoading: false,
+      } else {
 
-          group: {
-            title: resp.group.title,
-            avatarUrl: groupAvatars.large
-          },
+        $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
+          var inviterAvatars = resp.inviter.avatars || {};
+          var groupAvatars = resp.group.avatars || {};
 
-          token: token,
+          component.setState({
+            isLoading: false,
 
-          inviter: {
-            name: resp.inviter.name,
-            avatarUrl: inviterAvatars.large
-          }
+            group: {
+              title: resp.group.title,
+              avatarUrl: groupAvatars.large
+            },
+
+            token: token,
+
+            inviter: {
+              name: resp.inviter.name,
+              avatarUrl: inviterAvatars.large
+            }
+          });
         });
-      });
 
+      }
     }
   },
 
