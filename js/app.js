@@ -19,6 +19,7 @@ var App = React.createClass({displayName: "App",
 
   componentWillMount: function() {
     if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
+      this.setState({isLoading: true});
       this.onClick();
     }
 
