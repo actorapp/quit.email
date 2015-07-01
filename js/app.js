@@ -18,17 +18,17 @@ var App = React.createClass({displayName: "App",
   },
 
   componentWillMount: function() {
-    if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
-      this.setState({isLoading: true});
-      this.onClick();
-    }
-
     var match = document.location.pathname.match(/\/join\/(.+)/);
 
     if (match) {
       var token = match[1];
 
       var component = this;
+
+      if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
+        this.setState({isLoading: true});
+        this.onClick();
+      }
 
       $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
         var inviterAvatars = resp.inviter.avatars || {};
