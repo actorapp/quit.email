@@ -69,13 +69,12 @@ gulp.task('static', function() {
   gulp.src('app/index.html')
     .pipe(rename('index.html'))
     .pipe(gulp.dest('./dist'));
-  gulp.src('app/CNAME')
-    .pipe(gulp.dest('./dist'));
-});
 
-gulp.task('assets', function() {
   gulp.src('app/img/**/*')
     .pipe(gulp.dest('./dist/img'));
+
+  gulp.src('app/CNAME')
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('serve', function() {
@@ -108,9 +107,9 @@ gulp.task('ghpages', ['build'],function() {
     .pipe(ghpages());
 });
 
-gulp.task('dev', ['js', 'sass', 'html', 'assets', 'serve']);
-
 gulp.task('build', ['js', 'sass', 'static']);
+
+gulp.task('dev', ['build', 'serve']);
 
 gulp.task('deploy', ['build', 'ghpages']);
 
