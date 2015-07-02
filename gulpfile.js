@@ -65,9 +65,11 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream());
 });
 
-gulp.task('html', function() {
+gulp.task('static', function() {
   gulp.src('app/index.html')
     .pipe(rename('index.html'))
+    .pipe(gulp.dest('./dist'));
+  gulp.src('app/CNAME')
     .pipe(gulp.dest('./dist'));
 });
 
@@ -108,7 +110,7 @@ gulp.task('ghpages', ['build'],function() {
 
 gulp.task('dev', ['js', 'sass', 'html', 'assets', 'serve']);
 
-gulp.task('build', ['js', 'sass', 'html']);
+gulp.task('build', ['js', 'sass', 'static']);
 
 gulp.task('deploy', ['build', 'ghpages']);
 
