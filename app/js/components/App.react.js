@@ -2,74 +2,55 @@
 
 var React = require('react');
 var $ = require('zeptojs');
+var CustomProtoHelper = require('../utils/CustomProtoHelper');
 
 var App = React.createClass({
   getInitialState: function() {
-    return({isLoading: true});
+    return ({
+      isLoading: true
+    });
   },
 
   componentWillMount: function() {
-    var match = document.location.pathname.match(/\/join\/(.+)/);
+    var token = CustomProtoHelper.token;
+    var component = this;
 
-    if (match) {
-      var token = match[1];
-      var component = this;
+    $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
+      var inviterAvatars = resp.inviter.avatars || {};
+      var groupAvatars = resp.group.avatars || {};
 
-      //if (document.referrer.match('actor.im')) {
-      //  this.setState({
-      //    isLoading: true,
-      //    token: token
-      //  });
-      //
-      //  setTimeout( function() {
-      //    component.onClick();
-      //  }, 0)
-      //
-      //} else {
-        $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
-          var inviterAvatars = resp.inviter.avatars || {};
-          var groupAvatars = resp.group.avatars || {};
+      component.setState({
+        isLoading: false,
 
-          component.setState({
-            isLoading: false,
+        group: {
+          title: resp.group.title,
+          avatarUrl: groupAvatars.large
+        },
 
-            group: {
-              title: resp.group.title,
-              avatarUrl: groupAvatars.large
-            },
+        inviter: {
+          name: resp.inviter.name,
+          avatarUrl: inviterAvatars.large
+        }
+      });
+    });
 
-            token: token,
-
-            inviter: {
-              name: resp.inviter.name,
-              avatarUrl: inviterAvatars.large
-            }
-          });
-        });
-      //}
-    }
   },
 
   onClick: function() {
-    var token = this.state.token;
-    var joinLink = 'https://app.actor.im/#/join/' + token;
-    //var timeout = 100;
-    //var clicked = +new Date;
+    var joinLink = CustomProtoHelper.joinLink;
+    var timeout = 100;
+    var clicked = +new Date;
 
-    //var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
-    //var isAndroid = navigator.userAgent.match('Android');
-
-    //if (isiOS || isAndroid) {
-    //  document.getElementById('loader').src = 'actor://invite?token=' + token;
-    //  joinLink = isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
-    //}
-
-    //setTimeout(function () {
-    //  if (+new Date - clicked < timeout * 2) {
-        window.location.assign(joinLink);
-    //  }
-    //}, timeout);
-
+    if (CustomProtoHelper.isMobile) {
+      document.getElementById('loader').src = CustomProtoHelper.customProtocolLink;
+      joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
+    }
+    window.setTimeout(function () {
+      if (+new Date - clicked < timeout * 2) {
+        window.location.replace(joinLink);
+        //window.location.assign(joinLink);
+      }
+    }, timeout);
   },
 
   render: function() {
