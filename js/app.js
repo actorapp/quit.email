@@ -24,20 +24,17 @@ var App = React.createClass({displayName: "App",
       var token = match[1];
       var component = this;
 
-
-      if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
-
-        this.setState({
-          isLoading: true,
-          token: token
-        });
-
-        setTimeout( function() {
-          component.onClick();
-        }, 0)
-
-      } else {
-
+      //if (document.referrer.match('actor.im')) {
+      //  this.setState({
+      //    isLoading: true,
+      //    token: token
+      //  });
+      //
+      //  setTimeout( function() {
+      //    component.onClick();
+      //  }, 0)
+      //
+      //} else {
         $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
           var inviterAvatars = resp.inviter.avatars || {};
           var groupAvatars = resp.group.avatars || {};
@@ -58,30 +55,29 @@ var App = React.createClass({displayName: "App",
             }
           });
         });
-
-      }
+      //}
     }
   },
 
   onClick: function() {
     var token = this.state.token;
     var joinLink = 'https://app.actor.im/#/join/' + token;
-    var timeout = 100;
-    var clicked = +new Date;
+    //var timeout = 100;
+    //var clicked = +new Date;
 
-    var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
-    var isAndroid = navigator.userAgent.match('Android');
+    //var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
+    //var isAndroid = navigator.userAgent.match('Android');
 
-    if (isiOS || isAndroid) {
-      document.getElementById('loader').src = 'actor://invite?token=' + token;
-      joinLink = isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
-    }
+    //if (isiOS || isAndroid) {
+    //  document.getElementById('loader').src = 'actor://invite?token=' + token;
+    //  joinLink = isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
+    //}
 
-    setTimeout(function () {
-      if (+new Date - clicked < timeout * 2) {
-        window.location.replace(joinLink);
-      }
-    }, timeout);
+    //setTimeout(function () {
+    //  if (+new Date - clicked < timeout * 2) {
+        window.location.assign(joinLink);
+    //  }
+    //}, timeout);
 
   },
 
@@ -92,7 +88,6 @@ var App = React.createClass({displayName: "App",
     if (!this.state.isLoading) {
       return (
         React.createElement("section", {className: "invite"}, 
-          React.createElement("iframe", {style: {display: 'none'}, height: "0", width: "0", id: "loader"}), 
           React.createElement("div", {className: "invite__body"}, 
             React.createElement("h3", null, "Invite to ", group.title), 
 
@@ -109,9 +104,7 @@ var App = React.createClass({displayName: "App",
         )
       )
     } else {
-      return (
-        React.createElement("span", null)
-      )
+      return null;
     }
   }
 });
