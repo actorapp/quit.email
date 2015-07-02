@@ -19,6 +19,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var through = require('through2');
 var uglify = require('gulp-uglify');
 var watchify = require('watchify');
+var ghpages = require('gulp-gh-pages');
 
 // add custom browserify options here
 var customOpts = {
@@ -54,13 +55,13 @@ function bundle() {
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-  return gulp.src("app/styles/*.scss")
+  return gulp.src('app/styles/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(minifycss())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest("./dist/styles"))
+    .pipe(gulp.dest('./dist/styles'))
     .pipe(browserSync.stream());
 });
 
@@ -85,6 +86,7 @@ gulp.task('serve', function() {
         ])
       ]
     },
+    https: true,
     // Here you can disable/enable each feature individually
     ghostMode: {
       clicks: true,
@@ -94,11 +96,19 @@ gulp.task('serve', function() {
     open: false
   });
 
-  gulp.watch("app/styles/*.scss", ['sass']);
-  gulp.watch(["app/*.html", "app/js/**/*.js"]).on('change', reload);
+  gulp.watch('app/styles/*.scss', ['sass']);
+  gulp.watch(['app/*.html', 'app/js/**/*.js']).on('change', reload);
   //gulp.watch(['*.html', 'css/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
+});
+
+gulp.task('ghpages', ['build'],function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghpages());
 });
 
 gulp.task('dev', ['js', 'sass', 'html', 'assets', 'serve']);
 
 gulp.task('build', ['js', 'sass', 'html']);
+
+gulp.task('deploy', ['build', 'ghpages']);
+

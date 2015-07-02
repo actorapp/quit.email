@@ -15,20 +15,17 @@ var App = React.createClass({
       var token = match[1];
       var component = this;
 
-
-      if (document.referrer.match(/^https?:\/\/([^\/]+\.)?actor\.im(\/|$)/i)) {
-
-        this.setState({
-          isLoading: true,
-          token: token
-        });
-
-        setTimeout( function() {
-          component.onClick();
-        }, 0)
-
-      } else {
-
+      //if (document.referrer.match('actor.im')) {
+      //  this.setState({
+      //    isLoading: true,
+      //    token: token
+      //  });
+      //
+      //  setTimeout( function() {
+      //    component.onClick();
+      //  }, 0)
+      //
+      //} else {
         $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
           var inviterAvatars = resp.inviter.avatars || {};
           var groupAvatars = resp.group.avatars || {};
@@ -49,30 +46,29 @@ var App = React.createClass({
             }
           });
         });
-
-      }
+      //}
     }
   },
 
   onClick: function() {
     var token = this.state.token;
     var joinLink = 'https://app.actor.im/#/join/' + token;
-    var timeout = 100;
-    var clicked = +new Date;
+    //var timeout = 100;
+    //var clicked = +new Date;
 
-    var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
-    var isAndroid = navigator.userAgent.match('Android');
+    //var isiOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
+    //var isAndroid = navigator.userAgent.match('Android');
 
-    if (isiOS || isAndroid) {
-      document.getElementById('loader').src = 'actor://invite?token=' + token;
-      joinLink = isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
-    }
+    //if (isiOS || isAndroid) {
+    //  document.getElementById('loader').src = 'actor://invite?token=' + token;
+    //  joinLink = isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
+    //}
 
-    setTimeout(function () {
-      if (+new Date - clicked < timeout * 2) {
-        window.location.replace(joinLink);
-      }
-    }, timeout);
+    //setTimeout(function () {
+    //  if (+new Date - clicked < timeout * 2) {
+        window.location.assign(joinLink);
+    //  }
+    //}, timeout);
 
   },
 
@@ -83,7 +79,6 @@ var App = React.createClass({
     if (!this.state.isLoading) {
       return (
         <section className="invite">
-          <iframe style={{display: 'none'}} height="0" width="0" id="loader"></iframe>
           <div className="invite__body">
             <h3>Invite to {group.title}</h3>
 
@@ -100,9 +95,7 @@ var App = React.createClass({
         </section>
       )
     } else {
-      return (
-        <span/>
-      )
+      return null;
     }
   }
 });
