@@ -13,6 +13,7 @@ if (document.referrer.match('actor.im')) {
     window.location.replace(joinLink);
   }, 25);
   if (CustomProtoHelper.isMobile) {
+    console.log('Setting location to', CustomProtoHelper.customProtocolLink);
     window.location = CustomProtoHelper.customProtocolLink;
   }
 } else {
