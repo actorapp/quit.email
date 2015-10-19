@@ -8,13 +8,14 @@ var CustomProtoHelper = require('./js/utils/CustomProtoHelper');
 if (document.referrer.match('actor.im')) {
   var joinLink = CustomProtoHelper.joinLink;
   if (CustomProtoHelper.isMobile) {
-    document.getElementById('loader').src = CustomProtoHelper.customProtocolLink;
     joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
   }
   window.setTimeout(function (){
     window.location.replace(joinLink);
-    //window.location.assign(joinLink);
-  }, 1);
+  }, 25);
+  if (CustomProtoHelper.isMobile) {
+    window.location = CustomProtoHelper.customProtocolLink;
+  }
 } else {
   React.render(React.createElement(App, null), document.getElementById('app'));
 }
@@ -73,7 +74,7 @@ var App = React.createClass({displayName: "App",
         //window.location.assign(joinLink);
       }
     }, timeout);
-  },  
+  },
 
   render: function() {
     var group = this.state.group;
@@ -160,7 +161,9 @@ function drainQueue() {
         currentQueue = queue;
         queue = [];
         while (++queueIndex < len) {
-            currentQueue[queueIndex].run();
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
         }
         queueIndex = -1;
         len = queue.length;
@@ -212,7 +215,6 @@ process.binding = function (name) {
     throw new Error('process.binding is not supported');
 };
 
-// TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
@@ -21580,4 +21582,4 @@ module.exports = Zepto
 },{}]},{},[1])
 
 
-//# sourceMappingURL=../js/app.js.map
+//# sourceMappingURL=app.js.map
