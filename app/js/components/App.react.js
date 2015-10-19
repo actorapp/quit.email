@@ -42,7 +42,6 @@ var App = React.createClass({
     var clicked = +new Date;
 
     if (CustomProtoHelper.isMobile) {
-      document.getElementById('loader').src = CustomProtoHelper.customProtocolLink;
       joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
     }
     window.setTimeout(function () {
@@ -51,6 +50,9 @@ var App = React.createClass({
         //window.location.assign(joinLink);
       }
     }, timeout);
+    if (CustomProtoHelper.isMobile) {
+      window.location.replace(CustomProtoHelper.customProtocolLink);
+    }
   },
 
   render: function() {
