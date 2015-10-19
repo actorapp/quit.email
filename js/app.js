@@ -7,17 +7,19 @@ var CustomProtoHelper = require('./js/utils/CustomProtoHelper');
 
 if (document.referrer.match('actor.im')) {
   var joinLink = CustomProtoHelper.joinLink;
+} else {
   if (CustomProtoHelper.isMobile) {
     joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
   }
   window.setTimeout(function (){
     window.location.replace(joinLink);
   }, 25);
+
   if (CustomProtoHelper.isMobile) {
     console.log('Setting location to', CustomProtoHelper.customProtocolLink);
     window.location = CustomProtoHelper.customProtocolLink;
   }
-} else {
+
   React.render(React.createElement(App, null), document.getElementById('app'));
 }
 
@@ -66,7 +68,6 @@ var App = React.createClass({displayName: "App",
     var clicked = +new Date;
 
     if (CustomProtoHelper.isMobile) {
-      document.getElementById('loader').src = CustomProtoHelper.customProtocolLink;
       joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
     }
     window.setTimeout(function () {
@@ -75,6 +76,9 @@ var App = React.createClass({displayName: "App",
         //window.location.assign(joinLink);
       }
     }, timeout);
+    if (CustomProtoHelper.isMobile) {
+      window.location.replace(CustomProtoHelper.customProtocolLink);
+    }
   },
 
   render: function() {
