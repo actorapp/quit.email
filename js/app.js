@@ -82,11 +82,11 @@ var App = React.createClass({displayName: "App",
   },
 
   onClickGeneric: function() {
-    join('app');
+    this.join('app');
   },
   
   onClickEnterprise: function() {
-    join('corp');
+    this.join('corp');
   },
 
   render: function() {
