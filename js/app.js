@@ -95,8 +95,13 @@ var App = React.createClass({displayName: "App",
               React.createElement("strong", null, inviter.name), " invite you to our small ", React.createElement("strong", null, "team chat"), "."
             ), 
 
-            React.createElement("a", {className: "join-generic", onClick: this.onClick}, "Join group"), 
-            React.createElement("a", {className: "join-enterprise", onClick: this.onClick}, "Enterprise"), 
+            React.createElement("p", {className: "join-generic"}, 
+              React.createElement("a", {onClick: this.onClick}, "Join group")
+            ), 
+        
+            React.createElement("p", {className: "join-enterprise"}, 
+              React.createElement("a", {onClick: this.onClick}, "Enterprise")
+            ), 
 
             React.createElement("footer", null, 
               "Greetings,", React.createElement("br", null), React.createElement("strong", null, "Actor Team")
