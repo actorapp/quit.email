@@ -69,8 +69,13 @@ var App = React.createClass({
               <strong>{inviter.name}</strong> invite you to our small <strong>team chat</strong>.
             </p>
 
-            <a className="join-generic" onClick={this.onClick}>Join group</a>
-            <a className="join-enterprise" onClick={this.onClick}>Enterprise</a>
+            <p className="join-generic">
+              <a onClick={this.onClick}>Join group</a>
+            </p>
+        
+            <p className="join-enterprise">
+              <a onClick={this.onClick}>Enterprise</a>
+            </p>
 
             <footer>
               Greetings,<br/><strong>Actor Team</strong>

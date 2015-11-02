@@ -91,7 +91,15 @@ body
 
             margin: 0 0 25px;
         }
-        a.join-generic
+        p.join-generic {
+          font-size: 14px;
+          line-height: 19px;
+
+          margin: 0 0 25px;
+
+          text-align: left;
+        }
+        p.join-generic a
         {
             font-size: 14px;
             font-weight: 500;
@@ -106,10 +114,17 @@ body
                 color: $havelock-blue;
             }
         }
-        a.join-enterprise
-        {
-            align: right;
-          
+        p.join-enterprise {
+          font-size: 14px;
+          line-height: 19px;
+
+          margin: 0 0 25px;
+
+          text-align: right;
+        }
+        p.join-enterprise
+        a
+        {          
             font-size: 14px;
             font-weight: 500;
 
