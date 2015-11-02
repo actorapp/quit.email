@@ -62,7 +62,7 @@ var App = React.createClass({displayName: "App",
 
   },
 
-  onClick: function() {
+  join: function(prefix) {
     var joinLink = CustomProtoHelper.joinLink;
     var timeout = 100;
     var clicked = +new Date;
@@ -72,13 +72,21 @@ var App = React.createClass({displayName: "App",
     }
     window.setTimeout(function () {
       if (+new Date - clicked < timeout * 2) {
-        window.location.replace(joinLink);
+        window.location.replace(joinLink.replace('//app.', '//' + prefix + '.'));
         //window.location.assign(joinLink);
       }
     }, timeout);
     if (CustomProtoHelper.isMobile) {
       window.location.replace(CustomProtoHelper.customProtocolLink);
     }
+  },
+
+  onClickGeneric: function() {
+    join('app');
+  },
+  
+  onClickEnterprise: function() {
+    join('corp');
   },
 
   render: function() {
@@ -97,11 +105,11 @@ var App = React.createClass({displayName: "App",
 
             React.createElement("div", {className: "join"}, 
                 React.createElement("div", {className: "join__generic"}, 
-                  React.createElement("a", {onClick: this.onClick}, "Join group")
+                  React.createElement("a", {onClick: this.onClickGeneric}, "Join group")
                 ), 
         
                 React.createElement("div", {className: "join__enterprise"}, 
-                  React.createElement("a", {onClick: this.onClick}, "Enterprise")
+                  React.createElement("a", {onClick: this.onClickEnterprise}, "Enterprise")
                 )
             ), 
         
