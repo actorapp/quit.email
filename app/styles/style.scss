@@ -1,159 +1,116 @@
 @import '../../node_modules/normalize.css/normalize.css';
 @import url('https://fonts.googleapis.com/css?family=RobotoDraft:400,500|Roboto+Slab&subset=latin,cyrillic');
-
 $bodyColor: #eee;
 $havelock-blue: #4a90e2;
-
-html
-{
-    width: 100%;
-    height: 100%;
+html {
+  width: 100%;
+  height: 100%;
 }
-body
-{
-    position: relative;
-
+body {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 510px;
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 100px;
+  background-color: $bodyColor;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#app {
+  position: relative;
+  //position: absolute;
+  //top: 50%;
+  //left: 50%;
+  //
+  width: 510px;
+  height: 518px;
+  margin: 0 auto;
+  //margin-top: -210px;
+  //margin-left: -255px;
+}
+.invite {
+  width: 100%;
+  height: 100%;
+  background: url(/img/envelope.png) 0 0 no-repeat;
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+  only screen and (-moz-min-device-pixel-ratio: 1.5),
+  only screen and (-o-min-device-pixel-ratio: 3/2),
+  only screen and (min-device-pixel-ratio: 1.5) {
+    background-image: url(/img/envelope@2x.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  &__body {
+    font-family: 'RobotoDraft', serif;
+    position: absolute;
+    top: 3px;
+    left: 109px;
     box-sizing: border-box;
-    width: 100%;
-    max-width: 510px;
-    height: 100%;
-    margin: 0 auto;
-    padding-top: 100px;
-
-    background-color: $bodyColor;
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-#app
-{
-    position: relative;
-    //position: absolute;
-    //top: 50%;
-    //left: 50%;
-    //
-
-    width: 510px;
-    height: 518px;
-    margin: 0 auto;
-    //margin-top: -210px;
-    //margin-left: -255px;
-}
-
-.invite
-{
-    width: 100%;
-    height: 100%;
-
-    background: url(/img/envelope.png) 0 0 no-repeat;
-    @media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
-    only screen and (-moz-min-device-pixel-ratio: 1.5),
-    only screen and (-o-min-device-pixel-ratio: 3/2),
-    only screen and (min-device-pixel-ratio: 1.5)
-    {
-        background-image: url(/img/envelope@2x.png);
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
+    width: 292px;
+    height: 200px;
+    padding: 18px 20px 0;
+    text-align: initial;
+    color: rgba(61,61,61,.66);
+    h3 {
+      font-family: 'Roboto Slab', serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      margin: 0 0 15px;
+      color: #3d3d3d;
     }
-
-    &__body
-    {
-        font-family: 'RobotoDraft', serif;
-
-        position: absolute;
-        top: 3px;
-        left: 109px;
-
-        box-sizing: border-box;
-        width: 292px;
-        height: 200px;
-        padding: 18px 20px 0;
-
-        text-align: initial;
-
-        color: rgba(61,61,61,.66);
-        h3
-        {
-            font-family: 'Roboto Slab', serif;
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 20px;
-
-            margin: 0 0 15px;
-
-            color: #3d3d3d;
-        }
-        p
-        {
-            font-size: 14px;
-            line-height: 19px;
-
-            margin: 0 0 25px;
-        }
-        p.join-generic {
-          font-size: 14px;
-          line-height: 19px;
-
-          margin: 0 0 25px;
-
-          text-align: left;
-        }
-        p.join-generic a
-        {
-            font-size: 14px;
-            font-weight: 500;
-
-            cursor: pointer !important;
-            text-decoration: none;
-            text-transform: uppercase;
-
-            color: rgba($havelock-blue, .75);
-            &:hover
-            {
-                color: $havelock-blue;
-            }
-        }
-        p.join-enterprise {
-          font-size: 14px;
-          line-height: 19px;
-
-          margin: 0 0 25px;
-
-          text-align: right;
-        }
-        p.join-enterprise
-        a
-        {          
-            font-size: 14px;
-            font-weight: 500;
-
-            cursor: pointer !important;
-            text-decoration: none;
-            text-transform: uppercase;
-
-            color: rgba(#a1d490, .75);
-            &:hover
-            {
-                color: $havelock-blue;
-            }
-        }
-        strong
-        {
-            font-weight: 500;
-        }
-        footer
-        {
-            font-size: 13px;
-            line-height: 18px;
-
-            position: absolute;
-            right: 20px;
-            bottom: 0;
-
-            text-align: right;
-
-            color: rgba(61,61,61,.56);
-        }
+    p {
+      font-size: 14px;
+      line-height: 19px;
+      margin: 0 0 25px;
     }
+    p.join-generic {
+      font-size: 14px;
+      line-height: 19px;
+      margin: 0 0 25px;
+      float: left;
+    }
+    p.join-generic a {
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer !important;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: rgba($havelock-blue, .75);
+      &:hover {
+        color: $havelock-blue;
+      }
+    }
+    p.join-enterprise {
+      font-size: 14px;
+      line-height: 19px;
+      margin: 0 0 25px;
+      float: right;
+    }
+    p.join-enterprise a {
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer !important;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: rgba(#a1d490, .75);
+      &:hover {
+        color: rgba(#a1d490, 1);
+      }
+    }
+    strong {
+      font-weight: 500;
+    }
+    footer {
+      font-size: 13px;
+      line-height: 18px;
+      position: absolute;
+      right: 20px;
+      bottom: 0;
+      text-align: right;
+      color: rgba(61,61,61,.56);
+    }
+  }
 }

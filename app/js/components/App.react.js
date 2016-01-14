@@ -36,20 +36,31 @@ var App = React.createClass({
 
   },
 
-  onClick: function() {
-    var joinLink = CustomProtoHelper.joinLink;
+  onClick: function(app) {
+    var joinLink;
+    switch (app) {
+      case 'corp':
+        joinLink = CustomProtoHelper.joinLinkEnterprise;
+        break;
+      case 'app':
+      default:
+        joinLink = CustomProtoHelper.joinLink;
+        break;
+    }
+    console.debug(joinLink)
     var timeout = 100;
-    var clicked = +new Date;
+    var clicked = +new Date();
 
     if (CustomProtoHelper.isMobile) {
       joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
     }
     window.setTimeout(function () {
-      if (+new Date - clicked < timeout * 2) {
+      if (+new Date() - clicked < timeout * 2) {
         window.location.replace(joinLink);
         //window.location.assign(joinLink);
       }
     }, timeout);
+
     if (CustomProtoHelper.isMobile) {
       window.location.replace(CustomProtoHelper.customProtocolLink);
     }
@@ -70,11 +81,11 @@ var App = React.createClass({
             </p>
 
             <p className="join-generic">
-              <a onClick={this.onClick}>Join group</a>
+              <a onClick={this.onClick.bind(this, 'app')}>Join group</a>
             </p>
-        
+
             <p className="join-enterprise">
-              <a onClick={this.onClick}>Enterprise</a>
+              <a onClick={this.onClick.bind(this, 'corp')}>Enterprise</a>
             </p>
 
             <footer>
