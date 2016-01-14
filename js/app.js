@@ -6,7 +6,7 @@ var App = require('./js/components/App.react');
 var CustomProtoHelper = require('./js/utils/CustomProtoHelper');
 
 if (document.referrer.match('actor.im')) {
-  var joinLink = CustomProtoHelper.joinLink;
+  var joinLink = document.referrer.match('corp') ? CustomProtoHelper.joinLinkEnterprise : CustomProtoHelper.joinLink;
 
   if (CustomProtoHelper.isMobile) {
     joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
@@ -62,31 +62,34 @@ var App = React.createClass({displayName: "App",
 
   },
 
-  join: function(prefix) {
-    var joinLink = CustomProtoHelper.joinLink;
+  onClick: function(app) {
+    var joinLink;
+    switch (app) {
+      case 'corp':
+        joinLink = CustomProtoHelper.joinLinkEnterprise;
+        break;
+      case 'app':
+      default:
+        joinLink = CustomProtoHelper.joinLink;
+        break;
+    }
+    console.debug(joinLink)
     var timeout = 100;
-    var clicked = +new Date;
+    var clicked = +new Date();
 
     if (CustomProtoHelper.isMobile) {
       joinLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
     }
     window.setTimeout(function () {
-      if (+new Date - clicked < timeout * 2) {
-        window.location.replace(joinLink.replace('//app.', '//' + prefix + '.'));
+      if (+new Date() - clicked < timeout * 2) {
+        window.location.replace(joinLink);
         //window.location.assign(joinLink);
       }
     }, timeout);
+
     if (CustomProtoHelper.isMobile) {
       window.location.replace(CustomProtoHelper.customProtocolLink);
     }
-  },
-
-  onClickGeneric: function() {
-    this.join('app');
-  },
-  
-  onClickEnterprise: function() {
-    this.join('corp');
   },
 
   render: function() {
@@ -103,16 +106,14 @@ var App = React.createClass({displayName: "App",
               React.createElement("strong", null, inviter.name), " invite you to our small ", React.createElement("strong", null, "team chat"), "."
             ), 
 
-            React.createElement("div", {className: "join"}, 
-                React.createElement("div", {className: "join__generic"}, 
-                  React.createElement("a", {onClick: this.onClickGeneric}, "Join group")
-                ), 
-        
-                React.createElement("div", {className: "join__enterprise"}, 
-                  React.createElement("a", {onClick: this.onClickEnterprise}, "Enterprise")
-                )
+            React.createElement("p", {className: "join-generic"}, 
+              React.createElement("a", {onClick: this.onClick.bind(this, 'app')}, "Join group")
             ), 
-        
+
+            React.createElement("p", {className: "join-enterprise"}, 
+              React.createElement("a", {onClick: this.onClick.bind(this, 'corp')}, "Enterprise")
+            ), 
+
             React.createElement("footer", null, 
               "Greetings,", React.createElement("br", null), React.createElement("strong", null, "Actor Team")
             )
@@ -138,6 +139,7 @@ var match = document.location.pathname.match(/\/join\/(.+)/);
 if (match) var token = match[1];
 
 var joinLink = 'https://app.actor.im/#/join/' + token;
+var joinLinkEnterprise = 'https://corp.actor.im/#/join/' + token;
 var customProtocolLink = 'actor://invite?token=' + token;
 
 module.exports = {
@@ -146,6 +148,7 @@ module.exports = {
   isMobile: isMobile,
   token: token,
   joinLink: joinLink,
+  joinLinkEnterprise: joinLinkEnterprise,
   customProtocolLink: customProtocolLink
 };
 
