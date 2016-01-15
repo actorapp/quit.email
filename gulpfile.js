@@ -66,8 +66,10 @@ gulp.task('sass', function() {
 });
 
 gulp.task('static', function() {
-  gulp.src('app/index.html')
-    .pipe(rename('index.html'))
+  gulp.src([
+    'app/index.html',
+    'app/robots.txt'
+  ])
     .pipe(gulp.dest('./dist'));
 
   gulp.src('app/img/**/*')
@@ -112,4 +114,3 @@ gulp.task('build', ['js', 'sass', 'static']);
 gulp.task('dev', ['build', 'serve']);
 
 gulp.task('deploy', ['build', 'ghpages']);
-
