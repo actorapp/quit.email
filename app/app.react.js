@@ -19,5 +19,5 @@ if (document.referrer.match('actor.im')) {
     window.location = CustomProtoHelper.customProtocolLink;
   }
 } else {
-  React.render(<App/>, document.getElementById('app'));
+  React.render(<App/>, document.getElementById('invite'));
 }

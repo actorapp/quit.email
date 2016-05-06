@@ -15,39 +15,21 @@ var App = React.createClass({
     var token = CustomProtoHelper.token;
     var component = this;
 
-    $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
-      var inviterAvatars = resp.inviter.avatars || {};
-      var groupAvatars = resp.group.avatars || {};
+    this.onClick = this.onClick.bind(this);
 
+    $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
+      console.debug(resp);
       component.setState({
         isLoading: false,
-
-        group: {
-          title: resp.group.title,
-          avatarUrl: groupAvatars.large
-        },
-
-        inviter: {
-          name: resp.inviter.name,
-          avatarUrl: inviterAvatars.large
-        }
+        group: resp.group,
+        inviter: resp.inviter
       });
     });
 
   },
 
-  onClick: function(app) {
-    var joinLink;
-    switch (app) {
-      case 'corp':
-        joinLink = CustomProtoHelper.joinLinkEnterprise;
-        break;
-      case 'app':
-      default:
-        joinLink = CustomProtoHelper.joinLink;
-        break;
-    }
-    console.debug(joinLink)
+  onClick: function() {
+    var joinLink = CustomProtoHelper.joinLink;
     var timeout = 100;
     var clicked = +new Date();
 
@@ -57,7 +39,6 @@ var App = React.createClass({
     window.setTimeout(function () {
       if (+new Date() - clicked < timeout * 2) {
         window.location.replace(joinLink);
-        //window.location.assign(joinLink);
       }
     }, timeout);
 
@@ -67,36 +48,46 @@ var App = React.createClass({
   },
 
   render: function() {
+    if (this.state.isLoading) {
+      return null
+    }
+
     var group = this.state.group;
     var inviter = this.state.inviter;
 
-    if (!this.state.isLoading) {
-      return (
+    return (
+      <div className="container">
         <section className="invite">
-          <div className="invite__body">
-            <h3>Invite to {group.title}</h3>
+          <img className="invite__avatar" src={group.avatars.small} alt=""/>
 
-            <p>
-              <strong>{inviter.name}</strong> invite you to our small <strong>team chat</strong>.
-            </p>
-
-            <p className="join-generic">
-              <a onClick={this.onClick.bind(this, 'app')}>Join group</a>
-            </p>
-
-            <p className="join-enterprise">
-              <a onClick={this.onClick.bind(this, 'corp')}>Enterprise</a>
-            </p>
-
-            <footer>
-              Greetings,<br/><strong>Actor Team</strong>
-            </footer>
+          <div className="invite__title">
+            Join to <strong>{group.title}</strong> on Actor
           </div>
+
+          <div className="invite__body">
+            <p>
+              <strong>{inviter.name}</strong> invite you to join <strong>group chat</strong>.
+            </p>
+          </div>
+
+          <footer className="invite__footer">
+            <a className="button" onClick={this.onClick}>Join group</a>
+          </footer>
         </section>
-      )
-    } else {
-      return null;
-    }
+
+        <section className="install">
+          <div className="large">
+            Not using <strong>Actor</strong> yet?
+            <br/>
+            <a className="down-button" href="//actor.im">Download</a> our applications.
+          </div>
+          <a className="small" href="//actor.im">
+            Not using <strong>Actor</strong> yet? Download right now.
+            <img src="/img/download_icon.png" alt=""/>
+          </a>
+        </section>
+      </div>
+    )
   }
 });
 
