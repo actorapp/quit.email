@@ -20,7 +20,7 @@ if (document.referrer.match('actor.im')) {
     window.location = CustomProtoHelper.customProtocolLink;
   }
 } else {
-  React.render(React.createElement(App, null), document.getElementById('app'));
+  React.render(React.createElement(App, null), document.getElementById('invite'));
 }
 
 },{"./js/components/App.react":2,"./js/utils/CustomProtoHelper":3,"react":159}],2:[function(require,module,exports){
@@ -41,39 +41,21 @@ var App = React.createClass({displayName: "App",
     var token = CustomProtoHelper.token;
     var component = this;
 
-    $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
-      var inviterAvatars = resp.inviter.avatars || {};
-      var groupAvatars = resp.group.avatars || {};
+    this.onClick = this.onClick.bind(this);
 
+    $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
+      console.debug(resp);
       component.setState({
         isLoading: false,
-
-        group: {
-          title: resp.group.title,
-          avatarUrl: groupAvatars.large
-        },
-
-        inviter: {
-          name: resp.inviter.name,
-          avatarUrl: inviterAvatars.large
-        }
+        group: resp.group,
+        inviter: resp.inviter
       });
     });
 
   },
 
-  onClick: function(app) {
-    var joinLink;
-    switch (app) {
-      case 'corp':
-        joinLink = CustomProtoHelper.joinLinkEnterprise;
-        break;
-      case 'app':
-      default:
-        joinLink = CustomProtoHelper.joinLink;
-        break;
-    }
-    console.debug(joinLink)
+  onClick: function() {
+    var joinLink = CustomProtoHelper.joinLink;
     var timeout = 100;
     var clicked = +new Date();
 
@@ -83,7 +65,6 @@ var App = React.createClass({displayName: "App",
     window.setTimeout(function () {
       if (+new Date() - clicked < timeout * 2) {
         window.location.replace(joinLink);
-        //window.location.assign(joinLink);
       }
     }, timeout);
 
@@ -93,36 +74,46 @@ var App = React.createClass({displayName: "App",
   },
 
   render: function() {
+    if (this.state.isLoading) {
+      return null
+    }
+
     var group = this.state.group;
     var inviter = this.state.inviter;
 
-    if (!this.state.isLoading) {
-      return (
+    return (
+      React.createElement("div", {className: "container"}, 
         React.createElement("section", {className: "invite"}, 
+          React.createElement("img", {className: "invite__avatar", src: group.avatars.small, alt: ""}), 
+
+          React.createElement("div", {className: "invite__title"}, 
+            "Join to ", React.createElement("strong", null, group.title), " on Actor"
+          ), 
+
           React.createElement("div", {className: "invite__body"}, 
-            React.createElement("h3", null, "Invite to ", group.title), 
-
             React.createElement("p", null, 
-              React.createElement("strong", null, inviter.name), " invite you to our small ", React.createElement("strong", null, "team chat"), "."
-            ), 
-
-            React.createElement("p", {className: "join-generic"}, 
-              React.createElement("a", {onClick: this.onClick.bind(this, 'app')}, "Join group")
-            ), 
-
-            React.createElement("p", {className: "join-enterprise"}, 
-              React.createElement("a", {onClick: this.onClick.bind(this, 'corp')}, "Enterprise")
-            ), 
-
-            React.createElement("footer", null, 
-              "Greetings,", React.createElement("br", null), React.createElement("strong", null, "Actor Team")
+              React.createElement("strong", null, inviter.name), " invite you to join ", React.createElement("strong", null, "group chat"), "."
             )
+          ), 
+
+          React.createElement("footer", {className: "invite__footer"}, 
+            React.createElement("a", {className: "button", onClick: this.onClick}, "Join group")
+          )
+        ), 
+
+        React.createElement("section", {className: "install"}, 
+          React.createElement("div", {className: "large"}, 
+            "Not using ", React.createElement("strong", null, "Actor"), " yet?", 
+            React.createElement("br", null), 
+            React.createElement("a", {className: "down-button", href: "//actor.im"}, "Download"), " our applications."
+          ), 
+          React.createElement("a", {className: "small", href: "//actor.im"}, 
+            "Not using ", React.createElement("strong", null, "Actor"), " yet? Download right now.", 
+            React.createElement("img", {src: "/img/download_icon.png", alt: ""})
           )
         )
       )
-    } else {
-      return null;
-    }
+    )
   }
 });
 
