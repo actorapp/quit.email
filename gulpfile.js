@@ -104,7 +104,7 @@ gulp.task('serve', function() {
   //gulp.watch(['*.html', 'css/**/*.css', 'js/**/*.js'], {cwd: 'app'}, reload);
 });
 
-gulp.task('ghpages', ['build'],function() {
+gulp.task('ghpages', ['build'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghpages());
 });
