@@ -58,7 +58,11 @@ var App = React.createClass({
     return (
       <div className="container">
         <section className="invite">
-          <img className="invite__avatar" src={group.avatars.small} alt=""/>
+          {
+            group.avatars
+              ? <img className="invite__avatar" src={group.avatars.small} alt=""/>
+              : null
+          }
 
           <div className="invite__title">
             Join to <strong>{group.title}</strong> on Actor
