@@ -65,12 +65,12 @@ var App = React.createClass({
           }
 
           <div className="invite__title">
-            Join to <strong>{group.title}</strong> on Actor
+            Join <strong>{group.title}</strong> on Actor
           </div>
 
           <div className="invite__body">
             <p>
-              <strong>{inviter.name}</strong> invite you to join <strong>group chat</strong>.
+              <strong>{inviter.name}</strong> invites you to join a <strong>group chat</strong>.
             </p>
           </div>
 
@@ -83,7 +83,7 @@ var App = React.createClass({
           <div className="large">
             Not using <strong>Actor</strong> yet?
             <br/>
-            <a className="down-button" href="//actor.im">Download</a> our applications.
+            <a className="down-button" href="//actor.im">Download</a> our apps. It's free and secure!
           </div>
           <a className="small" href="//actor.im">
             Not using <strong>Actor</strong> yet? Download right now.
