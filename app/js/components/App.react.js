@@ -15,9 +15,7 @@ var App = React.createClass({
     var token = CustomProtoHelper.token;
     var component = this;
 
-    this.onClick = this.onClick.bind(this);
-
-    $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function (resp) {
+    $.getJSON('https://api.actor.im/v1/groups/invites/' + token, function(resp) {
       console.debug(resp);
       component.setState({
         isLoading: false,
@@ -60,7 +58,7 @@ var App = React.createClass({
         <section className="invite">
           {
             group.avatars
-              ? <img className="invite__avatar" src={group.avatars.small} alt=""/>
+              ? <img className="invite__avatar" src={group.avatars.small} alt={group.title}/>
               : null
           }
 
