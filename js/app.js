@@ -105,7 +105,6 @@ var App = React.createClass({displayName: "App",
               : 
                 null, 
           
-          
           React.createElement("footer", {className: "invite__footer"}, 
             React.createElement("a", {className: "button", onClick: this.onClick}, "Join group")
           )
@@ -117,7 +116,7 @@ var App = React.createClass({displayName: "App",
             React.createElement("br", null), 
             React.createElement("a", {className: "down-button", href: "//actor.im"}, "Download"), " our apps. It's free and secure!"
           ), 
-          React.createElement("a", {className: "small", href: "//actor.im"}, 
+          React.createElement("a", {className: "small", href: "{joinLink}"}, 
             "Not using ", React.createElement("strong", null, "Actor"), " yet? Download right now.", 
             React.createElement("img", {src: "/img/download_icon.png", alt: ""})
           )
