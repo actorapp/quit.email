@@ -84,6 +84,7 @@ var App = React.createClass({displayName: "App",
     if (CustomProtoHelper.isMobile) {
       mobileLink = CustomProtoHelper.isAndroid ? '//actor.im/android' : '//actor.im/ios';
     }
+    console.log("Mobile link is: " + mobileLink)
 
     return (
       React.createElement("div", {className: "container"}, 
