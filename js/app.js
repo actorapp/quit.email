@@ -82,7 +82,7 @@ var App = React.createClass({displayName: "App",
     var inviter = this.state.inviter;
     var mobileLink = "//actor.im"
     if (CustomProtoHelper.isMobile) {
-      mobileLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
+      mobileLink = CustomProtoHelper.isAndroid ? '//actor.im/android' : '//actor.im/ios';
     }
 
     return (
