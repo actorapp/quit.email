@@ -80,6 +80,10 @@ var App = React.createClass({displayName: "App",
 
     var group = this.state.group;
     var inviter = this.state.inviter;
+    var mobileLink = "//actor.im"
+    if (CustomProtoHelper.isMobile) {
+      mobileLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
+    }
 
     return (
       React.createElement("div", {className: "container"}, 
@@ -116,7 +120,7 @@ var App = React.createClass({displayName: "App",
             React.createElement("br", null), 
             React.createElement("a", {className: "down-button", href: "//actor.im"}, "Download"), " our apps. It's free and secure!"
           ), 
-          React.createElement("a", {className: "small", href: "{joinLink}"}, 
+          React.createElement("a", {className: "small", href: "{mobileLink}"}, 
             "Not using ", React.createElement("strong", null, "Actor"), " yet? Download right now.", 
             React.createElement("img", {src: "/img/download_icon.png", alt: ""})
           )
