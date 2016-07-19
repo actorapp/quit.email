@@ -52,6 +52,10 @@ var App = React.createClass({
 
     var group = this.state.group;
     var inviter = this.state.inviter;
+    var mobileLink = "https://actor.im"
+    if (CustomProtoHelper.isMobile) {
+      mobileLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
+    }
 
     return (
       <div className="container">
@@ -77,7 +81,6 @@ var App = React.createClass({
               : 
                 null
           }
-          
           <footer className="invite__footer">
             <a className="button" onClick={this.onClick}>Join group</a>
           </footer>
@@ -89,7 +92,7 @@ var App = React.createClass({
             <br/>
             <a className="down-button" href="//actor.im">Download</a> our apps. It's free and secure!
           </div>
-          <a className="small" href="//actor.im">
+          <a className="small" href={mobileLink}>
             Not using <strong>Actor</strong> yet? Download right now.
             <img src="/img/download_icon.png" alt=""/>
           </a>
