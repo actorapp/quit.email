@@ -80,11 +80,10 @@ var App = React.createClass({displayName: "App",
 
     var group = this.state.group;
     var inviter = this.state.inviter;
-    var mobileLink = "//actor.im"
+    var mobileLink = "https://actor.im"
     if (CustomProtoHelper.isMobile) {
-      mobileLink = CustomProtoHelper.isAndroid ? '//actor.im/android' : '//actor.im/ios';
+      mobileLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
     }
-    console.log("Mobile link is: " + mobileLink)
 
     return (
       React.createElement("div", {className: "container"}, 
