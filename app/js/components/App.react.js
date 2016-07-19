@@ -66,12 +66,18 @@ var App = React.createClass({
             Join <strong>{group.title}</strong> on Actor
           </div>
 
-          <div className="invite__body">
-            <p>
-              <strong>{inviter.name}</strong> invites you to join a <strong>group chat</strong>.
-            </p>
-          </div>
-
+          {
+            inviter
+              ? 
+                <div className="invite__body">
+                  <p>
+                    <strong>{inviter.name}</strong> invites you to join a <strong>group chat</strong>.
+                  </p>
+                </div>            
+              : 
+                null
+          }
+          
           <footer className="invite__footer">
             <a className="button" onClick={this.onClick}>Join group</a>
           </footer>
