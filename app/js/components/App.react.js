@@ -90,7 +90,7 @@ var App = React.createClass({
           </div>
           <a className="small" href="//actor.im/dl">
             Not using <strong>Actor</strong> yet? Download right now.
-            <img src="/img/download_icon.png" alt=""/>
+            <img src="//quit.email/img/download_icon.png" alt=""/>
           </a>
         </section>
       </div>
