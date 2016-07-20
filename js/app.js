@@ -118,7 +118,7 @@ var App = React.createClass({displayName: "App",
           ), 
           React.createElement("a", {className: "small", href: "//actor.im/dl"}, 
             "Not using ", React.createElement("strong", null, "Actor"), " yet? Download right now.", 
-            React.createElement("img", {src: "/img/download_icon.png", alt: ""})
+            React.createElement("img", {src: "//quit.email/img/download_icon.png", alt: ""})
           )
         )
       )
