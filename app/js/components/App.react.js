@@ -52,11 +52,7 @@ var App = React.createClass({
 
     var group = this.state.group;
     var inviter = this.state.inviter;
-    var mobileLink = "https://actor.im"
-    if (CustomProtoHelper.isMobile) {
-      mobileLink = CustomProtoHelper.isAndroid ? 'https://actor.im/android' : 'https://actor.im/ios';
-    }
-
+    
     return (
       <div className="container">
         <section className="invite">
@@ -90,9 +86,9 @@ var App = React.createClass({
           <div className="large">
             Not using <strong>Actor</strong> yet?
             <br/>
-            <a className="down-button" href="//actor.im">Download</a> our apps. It's free and secure!
+            <a className="down-button" href="//actor.im/dl">Download</a> our apps. It's free and secure!
           </div>
-          <a className="small" href={mobileLink}>
+          <a className="small" href="//actor.im/dl">
             Not using <strong>Actor</strong> yet? Download right now.
             <img src="/img/download_icon.png" alt=""/>
           </a>
